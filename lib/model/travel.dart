@@ -1,5 +1,6 @@
 class Travel {
   //model variables
+  final int id;
   final String name;
   final String description;
   final int duration;
@@ -11,6 +12,7 @@ class Travel {
 
   //model constuctor
   Travel(
+    this.id,
     this.name,
     this.duration,
     this.description,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_app/screens/details.dart';
 
 import '../constant/color.dart';
 import '../provider/travel.dart';
@@ -132,46 +133,57 @@ class WelcomePage extends StatelessWidget {
                   itemCount: TravelData.getNearestItems().length,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                TravelData.getNearestItems()[index].imageUrl[0],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 40,
-                          left: 20,
-                          right: 20,
-                          child: Container(
-                            height: 30,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          Details.routeName,
+                          arguments: {
+                            'id': TravelData.getNearestItems()[index].id
+                          },
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 200,
                             decoration: BoxDecoration(
-                              color: colorVar.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  '${TravelData.getNearestItems()[index].distance} km away',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  TravelData.getNearestItems()[index]
+                                      .imageUrl[0],
                                 ),
                               ),
                             ),
                           ),
-                        )
-                      ],
+                          Positioned(
+                            bottom: 40,
+                            left: 20,
+                            right: 20,
+                            child: Container(
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: colorVar.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    '${TravelData.getNearestItems()[index].distance} km away',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -201,23 +213,35 @@ class WelcomePage extends StatelessWidget {
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount: TravelData.getTravelItems().length,
-                  itemBuilder: (context, index) => ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                          TravelData.getTravelItems()[index].imageUrl[0],
-                          fit: BoxFit.cover,
-                          width: 60),
-                    ),
-                    title: Text(TravelData.getTravelItems()[index].name),
-                    subtitle: Text(TravelData.getTravelItems()[index].location),
-                    trailing: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        Image.asset('assets/images/star.png', width: 20),
-                        Text(TravelData.getTravelItems()[index].rating.toString())
-                      ],
+                  itemBuilder: (context, index) => GestureDetector(
+                     onTap: () {
+                        Navigator.of(context).pushNamed(
+                          Details.routeName,
+                          arguments: {
+                            'id': TravelData.getTravelItems()[index].id
+                          },
+                        );
+                      },
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                            TravelData.getTravelItems()[index].imageUrl[0],
+                            fit: BoxFit.cover,
+                            width: 60),
+                      ),
+                      title: Text(TravelData.getTravelItems()[index].name),
+                      subtitle: Text(TravelData.getTravelItems()[index].location),
+                      trailing: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Image.asset('assets/images/star.png', width: 20),
+                          Text(TravelData.getTravelItems()[index]
+                              .rating
+                              .toString())
+                        ],
+                      ),
                     ),
                   ),
                 ),
