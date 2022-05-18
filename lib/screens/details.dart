@@ -81,7 +81,7 @@ class Details extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: size.height * .5,
+              height: size.height * .3,
               width: size.width,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -137,7 +137,7 @@ class Details extends StatelessWidget {
                                   TextSpan(
                                     text: travel.cost.toString(),
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w700,
                                         color: Colors.black),
                                   ),
                                 ],
@@ -194,8 +194,11 @@ class Details extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(primary: colorVar),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: colorVar,
+                            padding: const EdgeInsets.symmetric(horizontal:90,vertical:10)
+                          ),
                           onPressed: null,
                           child: const Text(
                             'Discover',
